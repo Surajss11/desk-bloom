@@ -62,6 +62,8 @@ export interface DeskBloomApi {
   placement(): { source: string; zone: ComfortZone; head: number[]; surfaces: SurfaceCandidate[] };
   setTitles(titles: string[]): void;
   subscribe(fn: (s: A.AppState) => void): () => void;
+  /** World positions of interactive things, for automation and emulators. */
+  targets(): Record<string, [number, number, number]>;
 }
 
 export class BloomSystem extends createSystem({
@@ -131,6 +133,7 @@ export class BloomSystem extends createSystem({
       getState: () => this.app,
       dispatch: (action, arg) => this.dispatch(action, arg),
       placement: () => ({ source: this.placementSource, zone: this.zone, head: this.lastHead, surfaces: this.lastSurfaces }),
+      targets: () => this.targets(),
       setTitles: (titles) => {
         this.commit({ state: A.setDeckTitles(this.app, titles), events: [] });
         this.persist();
@@ -193,6 +196,32 @@ export class BloomSystem extends createSystem({
       this.rigs.set(task.id, { card, entity, home: new Vector3(), homeQ: new Quaternion() });
     });
     this.layoutCards(true);
+  }
+
+  private targets(): Record<string, [number, number, number]> {
+    const out: Record<string, [number, number, number]> = {};
+    const put = (name: string, o: Object3D | null | undefined) => {
+      if (!o) return;
+      o.updateWorldMatrix(true, false);
+      o.getWorldPosition(this.v);
+      out[name] = [this.v.x, this.v.y, this.v.z];
+    };
+    for (const [id, rig] of this.rigs) put(`card:${id}`, rig.card.root);
+    put('ring', this.ring.root);
+    put('jar', this.jar.group);
+    put('orb', this.orb.orb);
+    const panel = this.panel;
+    if (panel) {
+      put('panel', panel);
+      for (const id of ['btn-primary', 'btn-end', 'btn-breathe', 'btn-done', 'btn-contrast', 'btn-calm', 'btn-place', 'btn-exit', 'dur-1', 'dur-10', 'dur-25']) {
+        const el = panel.getElementById(id) as unknown as { boundingSphere?: { center: Vector3 } } | undefined;
+        if (!el?.boundingSphere) continue;
+        panel.updateWorldMatrix(true, false);
+        this.v.copy(el.boundingSphere.center).applyMatrix4(panel.matrixWorld);
+        out[`ui:${id}`] = [this.v.x, this.v.y, this.v.z];
+      }
+    }
+    return out;
   }
 
   private async buildPanel() {
