@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Desk Bloom: a hands-first mixed reality focus ritual for Meta Quest. Pinch a task card into the ring, focus, and grow a plant on your real desk." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%237be0a6'/%3E%3Ctext x='32' y='42' font-size='30' text-anchor='middle'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E" />
+    <title>Desk Bloom - hands-first focus in mixed reality</title>
+    <style>
+      :root { color-scheme: dark; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+      body { margin: 0; background: #111814; overflow: hidden; }
+      #scene-container { position: fixed; inset: 0; }
+      #page {
+        position: fixed; top: 16px; left: 16px; width: min(360px, calc(100vw - 32px));
+        max-height: calc(100vh - 32px); overflow: auto; box-sizing: border-box;
+        background: rgba(17, 24, 20, 0.92); color: #eef4ef; border: 1px solid #2f4a3c;
+        border-radius: 18px; padding: 18px 20px; box-shadow: 0 10px 40px rgba(0,0,0,.4);
+      }
+      #page.collapsed > :not(#toggle) { display: none; }
+      #page.collapsed { width: auto; padding: 6px 8px; }
+      #page.collapsed #toggle { position: static; }
+      body.in-xr #page { display: none; }
+      h1 { margin: 0 0 2px; font-size: 26px; }
+      .tag { margin: 0 0 14px; color: #a9c7b5; font-size: 14px; line-height: 1.4; }
+      label { display: block; font-size: 12px; letter-spacing: .08em; color: #7be0a6; margin: 12px 0 6px; font-weight: 700; }
+      input { width: 100%; box-sizing: border-box; margin: 0 0 6px; padding: 9px 11px; border-radius: 10px; border: 1px solid #36513f; background: #18231d; color: #fff; font-size: 15px; }
+      input:focus { outline: 2px solid #7be0a6; }
+      button { font: inherit; border-radius: 12px; border: 0; padding: 10px 14px; cursor: pointer; }
+      button:disabled { opacity: .45; cursor: not-allowed; }
+      #enter { width: 100%; margin-top: 14px; background: #7be0a6; color: #0f1a14; font-weight: 800; font-size: 17px; padding: 13px; }
+      #save { background: #24362c; color: #dff3e6; }
+      #toggle { position: absolute; top: 12px; right: 12px; background: transparent; color: #a9c7b5; padding: 4px 8px; font-size: 12px; }
+      .small { font-size: 12.5px; color: #9bb5a6; line-height: 1.45; margin: 10px 0 0; }
+      .small a { color: #7be0a6; }
+      #page-stats { font-size: 13px; color: #cfe3d6; margin-top: 10px; }
+      ol { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: #cfe3d6; line-height: 1.5; }
+    </style>
+    <script type="module" crossorigin src="./assets/index-AdaIYLqv.js"></script>
+  </head>
+  <body>
+    <div id="scene-container"></div>
+    <section id="page" aria-label="Desk Bloom setup">
+      <button id="toggle" type="button">Hide panel</button>
+      <h1>Desk Bloom</h1>
+      <p class="tag">A hands-first focus ritual for your real desk. Pinch a task card into the ring, focus, and grow a plant that is still there tomorrow.</p>
+      <label>TODAY'S CARDS (UP TO 4)</label>
+      <input data-task="0" aria-label="Card 1" />
+      <input data-task="1" aria-label="Card 2" />
+      <input data-task="2" aria-label="Card 3" />
+      <input data-task="3" aria-label="Card 4" />
+      <button id="save" type="button">Save cards</button>
+      <div id="page-stats"></div>
+      <button id="enter" type="button">Enter mixed reality</button>
+      <p class="small" id="xr-support">Checking WebXR support...</p>
+      <label>HOW IT WORKS</label>
+      <ol>
+        <li>Sit at your desk. Desk Bloom finds the table and sets up on it.</li>
+        <li>Pinch a card and drop it into the ring around the plant.</li>
+        <li>Focus. The ring fills, then your plant grows.</li>
+        <li>Drop finished cards into the jar. Breathe between blocks.</li>
+      </ol>
+      <p class="small" id="emu-note">No headset? Try the <a href="./emulator/">emulated version</a> in desktop Chrome (Immersive Web Emulator built in).</p>
+    </section>
+  </body>
+</html>

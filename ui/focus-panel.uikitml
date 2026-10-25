@@ -1,0 +1,62 @@
+<!--
+  Desk Bloom control panel. Every action here is also reachable by pinching
+  cards, so users can pick whichever input suits them: poke, hand ray,
+  gaze + pinch, or a controller.
+-->
+<style>
+  .root { flex-direction: column; width: 410px; }
+  .content { flex-direction: column; gap: 6px; padding-top: 18px; padding-left: 20px; padding-right: 20px; padding-bottom: 8px; }
+  .eyebrow { color: #2c6a4c; font-size: 13px; font-weight: 700; letter-spacing: 1.4px; }
+  .eyebrow:dark { color: #7be0a6; }
+  .title { color: #1c1d20; font-size: 28px; font-weight: 700; }
+  .title:dark { color: #fafaf7; }
+  .hint { color: #3a3b40; font-size: 17px; line-height: 1.3; }
+  .hint:dark { color: #dddfe3; }
+  .clock-row { flex-direction: row; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 4px; }
+  .clock { color: #1c1d20; font-size: 54px; font-weight: 700; }
+  .clock:dark { color: #ffffff; }
+  .phase { color: #2c6a4c; font-size: 15px; font-weight: 700; letter-spacing: 1.2px; }
+  .phase:dark { color: #7be0a6; }
+  .row { flex-direction: row; gap: 8px; padding-left: 20px; padding-right: 20px; padding-top: 8px; }
+  .stats { color: #3a3b40; font-size: 13px; padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 6px; }
+  .stats:dark { color: #c9ccd2; }
+  .foot { flex-direction: row; gap: 6px; padding-left: 20px; padding-right: 20px; padding-top: 4px; padding-bottom: 18px; }
+</style>
+<Panel id="root" class="root">
+  <div class="content">
+    <div id="eyebrow" class="eyebrow">DESK BLOOM</div>
+    <div id="title" class="title">Pinch a card</div>
+    <div id="hint" class="hint">Pick up any card on your desk and drop it into the ring.</div>
+  </div>
+  <div class="clock-row">
+    <div id="clock" class="clock">01:00</div>
+    <div id="phase" class="phase">READY</div>
+  </div>
+  <div class="row">
+    <Button id="dur-1" variant="secondary" size="sm"><ButtonLabel id="dur-1-label">1 min taster</ButtonLabel></Button>
+    <Button id="dur-10" variant="secondary" size="sm"><ButtonLabel id="dur-10-label">10 min</ButtonLabel></Button>
+    <Button id="dur-25" variant="secondary" size="sm"><ButtonLabel id="dur-25-label">25 min</ButtonLabel></Button>
+  </div>
+  <div class="row">
+    <Button id="btn-primary" variant="primary">
+      <ButtonIcon><Play></Play></ButtonIcon>
+      <ButtonLabel id="btn-primary-label">Focus next card</ButtonLabel>
+    </Button>
+    <Button id="btn-end" variant="secondary">
+      <ButtonIcon><Square></Square></ButtonIcon>
+      <ButtonLabel id="btn-end-label">End</ButtonLabel>
+    </Button>
+    <Button id="btn-breathe" variant="secondary">
+      <ButtonIcon><Wind></Wind></ButtonIcon>
+      <ButtonLabel>Breathe</ButtonLabel>
+    </Button>
+  </div>
+  <div id="stats" class="stats">Seed  |  1 min to next stage  |  0-day streak</div>
+  <div class="foot">
+    <Button id="btn-done" variant="tertiary" size="sm"><ButtonIcon><Check></Check></ButtonIcon><ButtonLabel>Done</ButtonLabel></Button>
+    <Button id="btn-contrast" variant="tertiary" size="sm"><ButtonIcon><Contrast></Contrast></ButtonIcon><ButtonLabel id="btn-contrast-label">Contrast</ButtonLabel></Button>
+    <Button id="btn-calm" variant="tertiary" size="sm"><ButtonIcon><Leaf></Leaf></ButtonIcon><ButtonLabel id="btn-calm-label">Calm</ButtonLabel></Button>
+    <Button id="btn-place" variant="tertiary" size="sm"><ButtonIcon><LocateFixed></LocateFixed></ButtonIcon><ButtonLabel>Re-place</ButtonLabel></Button>
+    <Button id="btn-exit" variant="tertiary" size="sm"><ButtonIcon><LogOut></LogOut></ButtonIcon><ButtonLabel>Exit</ButtonLabel></Button>
+  </div>
+</Panel>
